@@ -1,0 +1,136 @@
+1421766817TS---><!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js" ng-app="my">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+<meta content="yes" name="apple-mobile-web-app-capable" />
+<meta name="Robots" content="all" />
+<title>這裡是首頁</title>
+<link rel="shortcut icon" href="/img/icon.ico">
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+<script src="http://www.youtube.com/player_api"></script>
+<!-- Optional theme -->
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="/css/my.css">
+<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.3/angular.min.js"></script>
+</head>
+<body><!-- 上方選單 -->
+<nav class="navbar navbar-default" role="navigation">
+	<div class="container-fluid">
+		<!-- Brand and toggle get grouped for better mobile display -->
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+			<span class="sr-only">Toggle navigation</span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="http://z358z358.pcro.co/ci/">首頁</a>
+		</div>
+
+		<!-- Collect the nav links, forms, and other content for toggling -->
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			<ul class="nav navbar-nav">
+				<li class=""><a href="http://z358z358.pcro.co/ci/ptt">推文</a></li><li class=""><a href="http://z358z358.pcro.co/ci/youtube">youtube播放</a></li><li class=""><a href="http://z358z358.pcro.co/ci/mj">麻將 紀錄</a></li>				<!--<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <span class="caret"></span></a>
+					<ul class="dropdown-menu" role="menu">
+						<li><a href="#">Action</a></li>
+						<li><a href="#">Another action</a></li>
+						<li><a href="#">Something else here</a></li>
+						<li class="divider"></li>
+						<li class="dropdown-header">Nav header</li>
+						<li><a href="#">Separated link</a></li>
+						<li><a href="#">One more separated link</a></li>
+					</ul>
+				</li>-->
+			</ul>
+			<!--<ul class="login_area nav navbar-nav navbar-right">
+				<li class="login_hide"><a href="#" onclick="auth.login('facebook');">以facebook登入</a></li>
+				<li class="logout_hide user_pic"><img src="" class="img-rounded"></li>
+				<li class="logout_hide user_name"><a href="#"></a></li>
+				<li class="logout_hide"><a href="#" onclick="auth.logout();">登出</a></li>
+			</ul>-->
+		</div><!-- /.navbar-collapse -->
+	</div><!-- /.container-fluid -->
+</nav>
+<!-- 上方選單 end --><div class="container">	
+	<div class="jumbotron">
+		<h1>這裡是首頁</h1>
+	</div>
+</div><script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-53250580-2', 'auto');
+ga('require', 'displayfeatures');
+ga('require', 'linkid', 'linkid.js');
+ga('send', 'pageview');
+
+</script>	
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script src="https://cdn.firebase.com/js/client/1.0.18/firebase.js"></script>
+<script src="https://cdn.firebase.com/js/simple-login/1.6.1/firebase-simple-login.js"></script>
+<script src="/js/jquery.blockUI.js"></script>
+<script type="text/javascript">
+$(document).ajaxStop($.unblockUI); 
+
+// Firebase
+var myRef = new Firebase("https://onininon.firebaseio.com");
+var auth = new FirebaseSimpleLogin(myRef, function(error, user) {
+	if (error) {
+		// an error occurred while attempting login
+		console.log(error);
+	} else if (user) {
+		// user authenticated with Firebase
+		// console.log("User ID: " + user.uid + ", Provider: " + user.provider , user);
+		$(".login_hide").hide();
+		$(".logout_hide").show();
+		$(".user_name a").html(user.displayName);
+		$(".user_pic img").attr("src", user.thirdPartyUserData.picture.data.url);
+	} else {
+		// user is logged out
+		$(".logout_hide").hide();
+		$(".login_hide").show();
+	}
+});
+
+function ajax_data(data){
+
+	if(data["type"] == "input_error"){
+		$("#" + data["tag_id"]).parents("div.form-group").addClass("has-error has-feedback").append('<span class="glyphicon glyphicon-remove form-control-feedback"></span>');
+	}
+	else if(data["type"] == "html"){
+		$("#" + data["tag_id"]).html(data["html"]);
+	}
+	else if(data["type"] == "ptt_table"){
+		ptt_table(data);
+	}
+}
+</script>
+<script type="text/javascript">
+$(document).ready(function() {
+	// ajax
+	$("body").on("click" , ".ajax_post" , function(){
+		$.blockUI({'timeout':5000});
+		var form = $(this).parents("form");
+		if(form){
+			$.post("http://z358z358.pcro.co/ci/ajax" , form.serialize(), function(data) {
+				ajax_data(data);
+				//console.log(data);
+			}, "json");
+		}	
+	});
+});
+</script>
+</body>
+</html>
